@@ -9,9 +9,12 @@ import {
 } from '@chakra-ui/layout'
 
 import { Link } from 'react-router-dom'
+import { useAuth } from '../contexts/authContext'
+import { auth } from '../firebase'
 import { primaryTextColor } from '../theme'
 
 export const Header = () => {
+  const { user } = useAuth()
   return (
     <>
       <Box py={1} shadow='md' bg='gray.600'>
@@ -21,18 +24,18 @@ export const Header = () => {
               <Link to='/'>Single Board</Link>
             </Heading>
             <Spacer />
-            <HStack>
+            {user ? (
+              <Text color='white' as='button' onClick={() => auth.signOut()}>
+                Log Out
+              </Text>
+            ) : (
               <Link to='/login'>
-                <HeaderText>Sign In</HeaderText>
+                <Text color='white'> Sign In</Text>
               </Link>
-            </HStack>
+            )}
           </Flex>
         </Container>
       </Box>
     </>
   )
 }
-
-const HeaderText = (props: React.PropsWithChildren<{}>) => (
-  <Text color={primaryTextColor}>{props.children}</Text>
-)

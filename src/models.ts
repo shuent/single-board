@@ -8,3 +8,8 @@ export type IComment = {
   createdAt: Date
   id: string
 }
+
+export type ICommentAdd = {
+  user: IUser
+  content: string
+}

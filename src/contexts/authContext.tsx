@@ -13,12 +13,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<firebase.User | any>(null)
   const [loading, setLoading] = useState(true)
 
-  const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-    setUser(user)
-    setLoading(false)
-  })
 
   useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      setUser(user)
+      setLoading(false)
+    })
     return unsubscribe
   }, [])
 

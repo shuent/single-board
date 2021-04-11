@@ -1,7 +1,7 @@
 import { Center, Heading, VStack } from '@chakra-ui/layout'
 import { primaryTextColor } from '../theme'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
-import { firebase } from '../firebase'
+import { firebase, auth } from '../firebase'
 
 const uiConfig = {
   signInFlow: 'popup',
@@ -20,10 +20,7 @@ export const Login = () => {
         <Heading size='md' color={primaryTextColor}>
           Sign In
         </Heading>
-        <StyledFirebaseAuth
-          uiConfig={uiConfig}
-          firebaseAuth={firebase.auth()}
-        />
+        <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
       </VStack>
     </Center>
   )

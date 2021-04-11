@@ -1,39 +1,20 @@
 import { HStack, Box, Avatar, Heading, Text } from '@chakra-ui/react'
 import { useEffect } from 'react'
+import { getComments } from '../api/commentsApi'
 import { useComments } from '../contexts/commentsContext'
 
 import { IComment, IUser } from '../models'
 import { primaryColor } from '../theme'
 
-const user1: IUser = { displayName: 'testuser1', photoURL: 'sample.jpg' }
-
 export const CommentList = () => {
-  const { state, dispatch } = useComments()
-  const dcomments: IComment[] = [
-    {
-      user: user1,
-      content:
-        'first comment assssssss   ssssssssssssssss ssssssssssssssssss sssssssssssssssssss sssssssssssssssssssssss sssssssssssssssssss ssssssssssssssssssss ssssssssssssssssssssss',
-      createdAt: new Date(),
-      id: 'comment1id',
-    },
-    {
-      user: user1,
-      content: '元気ですか',
-      createdAt: new Date(),
-      id: 'comment2id',
-    },
-  ]
-
+  const {
+    state: { comments },
+    dispatch,
+  } = useComments()
   useEffect(() => {
-    let unmount = false
-    if (!unmount) {
-      console.log('set comments called')
-      dispatch({ type: 'SET_COMMENTS', comments: dcomments })
-    }
-    return () => {
-      unmount = true
-    }
+    getComments().then((data) => {
+      dispatch({ type: 'SET_COMMENTS', comments: data })
+    })
   }, [dispatch])
 
   return (
@@ -41,13 +22,21 @@ export const CommentList = () => {
       <Heading mt={4} mb={2} size='md' color='gray.600'>
         Posted Comments
       </Heading>
-      <ul>{state.comments.map(Comment)}</ul>
+      <ul>
+        {comments === [] ? (
+          <p>No Post</p>
+        ) : (
+          comments.map((comment) => (
+            <Comment key={comment.id} comment={comment} />
+          ))
+        )}
+      </ul>
     </>
   )
 }
 
-const Comment = (comment: IComment) => (
-  <Box key={comment.id} bg='white' shadow='md' p={2} mb={4} rounded='md'>
+const Comment = ({ comment }: { comment: IComment }) => (
+  <Box bg='white' shadow='md' p={4} mb={4} rounded='md'>
     <HStack mb={2}>
       <Avatar
         size='sm'

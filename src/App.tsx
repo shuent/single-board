@@ -6,21 +6,25 @@ import { theme } from './theme'
 import { Login } from './components/Login'
 import { Home } from './components/Home'
 import { AuthProvider } from './contexts/authContext'
+import { CommentsProvider } from './contexts/commentsContext'
+
 function App() {
   return (
     <AuthProvider>
       <ChakraProvider theme={theme}>
-        <Router>
-          <Header />
-          <Switch>
-            <Route exact path='/'>
-              <Home />
-            </Route>
-            <Route path='/login'>
-              <Login />
-            </Route>
-          </Switch>
-        </Router>
+        <CommentsProvider>
+          <Router>
+            <Header />
+            <Switch>
+              <Route exact path='/'>
+                <Home />
+              </Route>
+              <Route path='/login'>
+                <Login />
+              </Route>
+            </Switch>
+          </Router>
+        </CommentsProvider>
       </ChakraProvider>
     </AuthProvider>
   )
