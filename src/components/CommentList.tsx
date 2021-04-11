@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { getComments } from '../api/commentsApi'
 import { useComments } from '../contexts/commentsContext'
 
-import { IComment, IUser } from '../models'
+import { IComment } from '../models'
 import { primaryColor } from '../theme'
 
 export const CommentList = () => {

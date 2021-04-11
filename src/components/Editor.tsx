@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text, Textarea, VStack } from '@chakra-ui/react'
+import { Button, Text, Textarea, VStack } from '@chakra-ui/react'
 import { useState } from 'react'
 import { addComment } from '../api/commentsApi'
 import { useAuth } from '../contexts/authContext'
